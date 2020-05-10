@@ -6,18 +6,22 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
+	// program for using external file in java
 
-        // code for importing external file in java program
-        File file = new File("movies.txt");
-        Scanner scanner =new Scanner(file);
+       try {
+           File file = new File("movies.txt");
+           Scanner scanner = new Scanner(file);
 
-        //check whether file has more data in it
+
         while (scanner.hasNextLine())
         {
-            String movie = scanner.nextLine();
-            System.out.println(movie);
-        }
+            System.out.println(scanner.nextLine());
+        }}
+       catch (FileNotFoundException exception)
+       {
+           System.out.println("Invalid file imported");
+       }
 
     }
 }
