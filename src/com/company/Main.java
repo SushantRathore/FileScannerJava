@@ -2,26 +2,38 @@ package com.company;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main {
+public class Main  {
 
     public static void main(String[] args) {
 	// program for using external file in java
+        Game game = new Game("movies.txt");
 
-       try {
-           File file = new File("movies.txt");
-           Scanner scanner = new Scanner(file);
+        System.out.println("Welcome to the game of Guess the Movie!");
+        System.out.println("The rules are simple, the computer randomly picks a movie title, and shows you how many letters its made up of.");
+        System.out.println("Your goal is to try to figure out the movie by guessing one letter at a time.");
+        System.out.println("If a letter is indeed in the title the computer will reveal its correct position in the word, if not, you lose a point.");
+        System.out.println("If you lose 10 points, game over!!");
+        System.out.println("Let's start!");
+        System.out.println("the movie title has "+game.getMovieTitle().length() + " characters (including spaces and punctuation).");
 
-
-        while (scanner.hasNextLine())
-        {
-            System.out.println(scanner.nextLine());
-        }}
-       catch (FileNotFoundException exception)
-       {
-           System.out.println("Invalid file imported");
-       }
-
+        while(!game.gameEnded()){
+            System.out.println("You are guessing: " + game.getHiddenMovieTitle());
+            System.out.println("You have guessed (" + game.getWrongLetters().length()/2+ ") wrong letters" + game.getWrongLetters());
+            game.guessLetter();
+        }
+        if (game.WonGame()){
+            System.out.println("You win!");
+            System.out.println("You have guessed '"+ game.getMovieTitle()+"' correctly");
+        }
+        else {
+            System.out.println("You have guessed ("+ game.getWrongLetters().length()/2 +") wrong letters:" + game.getWrongLetters());
+            System.out.println("You lost!");
+            System.out.println("The movie title was "+ game.getMovieTitle());
+            System.out.println("Better luck next time.");
+        }
     }
 }
+
